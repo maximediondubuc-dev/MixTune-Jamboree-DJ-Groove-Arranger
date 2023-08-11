@@ -13,22 +13,23 @@ export class CallbackComponent implements OnInit {
     const urlParams = new URLSearchParams(window.location.search);
       let code = urlParams.get('code');
       let codeVerifier = localStorage.getItem('code_verifier');
-      let redirectUri;
-      let clientId;
+      let redirectUri = "http://localhost:4200/callback";
+      let client_id="1640144d61f247aa901a2b6979a8fca6";
+      let client_secret="008bb77906b047a9adf9a2412969872b"
       let body = {
         grant_type: 'authorization_code',
         code: code,
         redirect_uri: redirectUri,
-        client_id: clientId,
-        code_verifier: codeVerifier
       };
 
       const response = fetch('https://accounts.spotify.com/api/token', {
   method: 'POST',
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': 'Basic ' + btoa(client_id + ':' + client_secret)
+
   },
-  body: body as any
+  body: this.turnToQueryString(body) as any
 })
   .then(response => {
     if (!response.ok) {
@@ -37,6 +38,7 @@ export class CallbackComponent implements OnInit {
     return response.json();
   })
   .then(data => {
+    console.log(data);
     localStorage.setItem('access_token', data.access_token);
   })
   .catch(error => {
@@ -44,11 +46,12 @@ export class CallbackComponent implements OnInit {
   });
 
 
-      const token = this.route.snapshot.queryParamMap.get('token');
-      if(token)
-        window.localStorage.setItem('token',token)
       // Handle token
       // ...
       this.router.navigate(['/']);
+  }
+
+  turnToQueryString(object:any):string{
+    return Object.keys(object).map(key => key + '=' + object[key]).join('&');
   }
 }

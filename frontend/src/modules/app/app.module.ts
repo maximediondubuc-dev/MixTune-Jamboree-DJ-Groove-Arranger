@@ -8,6 +8,11 @@ import { BoardComponent } from 'src/components/board/board.component';
 import { ItemListComponent } from 'src/components/item-list/item-list.component';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { CallbackComponent } from 'src/components/callback/callback.component';
+import { DialogAnimationsExampleDialog, LoginComponent } from 'src/components/login/login.component';
+import { MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import { SafePipe } from 'src/pipe/safe.pipe';
+
 
 @NgModule({
   declarations: [
@@ -15,12 +20,17 @@ import { CallbackComponent } from 'src/components/callback/callback.component';
     ItemComponent,
     BoardComponent,
     ItemListComponent,
-    CallbackComponent
+    CallbackComponent,
+    LoginComponent,
+    DialogAnimationsExampleDialog,
+    SafePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DragDropModule
+    DragDropModule,
+    MatButtonModule, 
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Login to spotify</h2>
+<mat-dialog-content class="mat-typography">
+    <iframe [src]="data.URI | safe" name="iframe_a" height="800px" width="800px" title="Iframe Example"></iframe>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
+</mat-dialog-actions>
