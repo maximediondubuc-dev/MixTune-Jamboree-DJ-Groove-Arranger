@@ -28,7 +28,7 @@ export class BoardComponent {
       })
       .then(data => {
         console.log(data);
-        this.originalItemList= data.tracks.items.map((item:any)=>item.track.artists[0].name +" "+ item.track.name)
+        this.originalItemList= data.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)
 
       })
       .catch(error => {
