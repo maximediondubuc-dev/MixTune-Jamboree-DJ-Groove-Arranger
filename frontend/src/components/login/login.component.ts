@@ -24,7 +24,7 @@ export class LoginComponent {
     getSpotifyAuthorizationUri():string{
 
       var state = "1234567891234567"
-      var scope = 'user-read-private user-read-email';
+      var scope = 'user-read-private user-read-email playlist-read-private playlist-read-collaborative'; 
       let uri = 'https://accounts.spotify.com/authorize?' +
       this.turnToQueryString({
         response_type: 'code',
