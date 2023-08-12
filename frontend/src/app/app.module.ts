@@ -11,7 +11,8 @@ import { CallbackComponent } from 'src/components/callback/callback.component';
 import { LoginComponent } from 'src/components/login/login.component';
 import { MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { SpotifyAuthInterceptor } from 'src/components/interceptors/spotifyAuthInterceptor.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,12 @@ import { provideHttpClient } from '@angular/common/http';
     MatButtonModule, 
     MatDialogModule
   ],
-  providers: [
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: SpotifyAuthInterceptor,
+    multi: true
+  }
+    ,
     provideHttpClient()],
   bootstrap: [AppComponent]
 })
