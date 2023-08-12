@@ -16,7 +16,7 @@ export class BoardComponent {
     const response = fetch(`https://api.spotify.com/v1/playlists/${playlistId}`, {
       method: 'GET',
       headers: {
-        'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+        'Authorization': 'Bearer ' + sessionStorage.getItem('SPOTIFY_TOKEN')
     
       }
     })

@@ -8,16 +8,23 @@ const SPOTIFY_TOKEN_KEY = 'SPOTIFY_TOKEN';
 export class AuthService{
     private oAuthClient!:OAuth2Client;
     private config:any;
-    private codeVerifier:string="";
     async authInit(config:any){
+        console.log("authInit")
         this.config = config;
         this.oAuthClient = new OAuth2Client(config as ClientSettings)
-        this.codeVerifier = await generateCodeVerifier();
+    }
 
+    private async getCodeVerifier() : Promise<string>{
+        let codeVerifier = sessionStorage.getItem("CODE_VERIFIER");
+        if(!codeVerifier){
+            codeVerifier = await generateCodeVerifier();
+            sessionStorage.setItem("CODE_VERIFIER",codeVerifier);
+        }
+        return codeVerifier;
     }
 
     public async login():Promise<void>{
-        const codeVerifier = this.codeVerifier;
+        const codeVerifier = await this.getCodeVerifier()
 
         // In a browser this might work as follows:
         document.location = await this.oAuthClient.authorizationCode.getAuthorizeUri({
@@ -36,7 +43,7 @@ export class AuthService{
         });
     }
     public async handleCallback():Promise<void>{
-        const codeVerifier = this.codeVerifier;
+        const codeVerifier = await this.getCodeVerifier()
 
         const oauth2Token = await this.oAuthClient.authorizationCode.getTokenFromCodeRedirect(
             document.location as any,

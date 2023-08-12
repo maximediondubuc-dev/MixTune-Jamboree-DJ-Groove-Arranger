@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private oAuthService :OAuthService){
+  constructor(private spotifyAuthService : AuthService){
 
     }
      
@@ -29,8 +30,7 @@ export class LoginComponent {
     }
 
     loginToSpotify(){
-      this.oAuthService.configure(environment.spotifyAuthConfig);
-      this.oAuthService.initLoginFlow();
+      this.spotifyAuthService.login();
     }
 
     botchLoginCode(){

@@ -9,9 +9,9 @@ import { AuthService } from 'src/services/auth.service';
 })
 export class AppComponent implements OnInit{
   spotifyAuthService = inject(AuthService)
-  spotifyAuthConfig : string = JSON.stringify(environment.spotifyAuthConfig)
-  ngOnInit(): void {
-    this.spotifyAuthService.authInit(this.spotifyAuthConfig)
+  spotifyAuthConfig : any = environment.spotifyAuthConfig
+  async ngOnInit(): Promise<void> {
+    await this.spotifyAuthService.authInit(this.spotifyAuthConfig)
   }
   title = 'Mixtune-Jamboree';
 }
