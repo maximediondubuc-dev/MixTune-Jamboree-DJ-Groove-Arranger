@@ -1,7 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { SafePipe } from 'src/pipe/safe.pipe';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -9,18 +8,10 @@ import { SafePipe } from 'src/pipe/safe.pipe';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(public dialog: MatDialog){
-    }
-    openDialog() {
-      const dialogRef = this.dialog.open(DialogAnimationsExampleDialog,{
-        data: { URI: this.getSpotifyAuthorizationUri() },
-      });
-  
-      dialogRef.afterClosed().subscribe(result => {
-        console.log(`Dialog result: ${result}`);
-      });
-    }
+  constructor(private oAuthService :OAuthService){
 
+    }
+     
     getSpotifyAuthorizationUri():string{
 
       var state = "1234567891234567"
@@ -37,21 +28,16 @@ export class LoginComponent {
         
     }
 
-    redirectToLogin(){
+    loginToSpotify(){
+      this.oAuthService.configure(environment.spotifyAuthConfig);
+      this.oAuthService.initLoginFlow();
+    }
+
+    botchLoginCode(){
       location.href = this.getSpotifyAuthorizationUri();
+
     }
     turnToQueryString(object:any):string{
       return Object.keys(object).map(key => key + '=' + object[key]).join('&');
     }
-}
-
-
-@Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: 'login-dialog.html'
-})
-export class DialogAnimationsExampleDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {URI: string},public dialogRef: MatDialogRef<DialogAnimationsExampleDialog>) {
-    console.log(data);
-  }
 }
