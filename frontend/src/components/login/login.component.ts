@@ -1,6 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { OAuthService } from 'angular-oauth2-oidc';
-import { environment } from 'src/environments/environment';
 import { AuthService } from 'src/services/auth.service';
 
 @Component({

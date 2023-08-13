@@ -1,4 +1,3 @@
-import {AuthConfig,OAuthService} from 'angular-oauth2-oidc'
 import {Injectable, inject } from '@angular/core'
 import { OAuth2Client, generateCodeVerifier } from '@badgateway/oauth2-client';
 import { ClientSettings } from '@badgateway/oauth2-client/dist/client';

@@ -8,12 +8,13 @@ import { AuthService } from 'src/services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class SpotifyAuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    console.log("hit interceptor")
     const token = this.authService.getAccessToken();
     if (token) {
       request = request.clone({

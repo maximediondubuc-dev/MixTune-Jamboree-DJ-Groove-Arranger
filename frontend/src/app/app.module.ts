@@ -9,10 +9,10 @@ import { ItemListComponent } from 'src/components/item-list/item-list.component'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { CallbackComponent } from 'src/components/callback/callback.component';
 import { LoginComponent } from 'src/components/login/login.component';
-import { MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
-import { SpotifyAuthInterceptor } from 'src/components/interceptors/spotifyAuthInterceptor.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { HTTP_INTERCEPTORS, provideHttpClient,withInterceptorsFromDi } from '@angular/common/http';
+import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
 
 @NgModule({
   declarations: [
@@ -27,16 +27,17 @@ import { SpotifyAuthInterceptor } from 'src/components/interceptors/spotifyAuthI
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatDialogModule
   ],
-  providers: [{
+  providers: [
+    {
     provide: HTTP_INTERCEPTORS,
-    useClass: SpotifyAuthInterceptor,
+    useClass: AuthInterceptor,
     multi: true
-  }
-    ,
-    provideHttpClient()],
+    },
+    provideHttpClient(withInterceptorsFromDi()),
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
