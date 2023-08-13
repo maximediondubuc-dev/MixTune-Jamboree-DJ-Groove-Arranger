@@ -16,6 +16,7 @@ import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
 import { PlaylistSelectionComponent } from '../components/playlist-selection/playlist-selection.component';
 import {MatCardModule} from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from 'src/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule
   ],
   providers: [
+    {
+      provide: AuthGuard,
+      useClass:AuthGuard
+    },
     {
       provide: MatDialogRef,
       useValue: {}

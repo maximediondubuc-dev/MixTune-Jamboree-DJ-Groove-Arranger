@@ -13,7 +13,7 @@ export class CallbackComponent implements OnInit {
   authService = inject(SpotifyAuthService)
 
   public ngOnInit():void {
-    this.authService.handleCallback().then(()=>this.router.navigate(['/']));
+    this.authService.handleCallback().then(()=>this.router.navigate(['main']));
   }
  
 }
