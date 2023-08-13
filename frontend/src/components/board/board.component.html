@@ -5,3 +5,6 @@
     <item-list [titleColor]="'bg-green-500'" [title]="'Complete'"></item-list>
 </div>
 <button (click)="getPlaylist()">load playlist</button>
+
+<playlist-selection [playlists]="playlists"></playlist-selection>
+<button mat-button (click)="openPlaylistSelection()">Select a playlist</button>

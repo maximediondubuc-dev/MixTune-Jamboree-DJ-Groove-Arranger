@@ -9,10 +9,12 @@ import { ItemListComponent } from 'src/components/item-list/item-list.component'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { CallbackComponent } from 'src/components/callback/callback.component';
 import { LoginComponent } from 'src/components/login/login.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { HTTP_INTERCEPTORS, provideHttpClient,withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
+import { PlaylistSelectionComponent } from '../components/playlist-selection/playlist-selection.component';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -21,16 +23,23 @@ import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
     BoardComponent,
     ItemListComponent,
     CallbackComponent,
-    LoginComponent
+    LoginComponent,
+    PlaylistSelectionComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     DragDropModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule
   ],
   providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    },
+
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

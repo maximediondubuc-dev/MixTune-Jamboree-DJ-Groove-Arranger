@@ -1,10 +1,6 @@
-import { HttpClient } from '@angular/common/http'
 import {Injectable, inject} from '@angular/core'
-import { IAuthStrategy, Playlist, SpotifyApi } from '@spotify/web-api-ts-sdk';
-import { Observable } from 'rxjs'
-import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth/auth.service';
-import { SdkConfiguration, AccessToken } from '@spotify/web-api-ts-sdk/dist/mjs/types';
+import { Page, Playlist, SimplifiedPlaylist, SpotifyApi } from '@spotify/web-api-ts-sdk';
+
 import { SpotifyAuthService } from '../auth/spotifyAuth.service';
 
 @Injectable({
@@ -23,7 +19,11 @@ export class SpotifyService {
     }
 
     async getPlaylist(playlistId:string):Promise<Playlist>{
-        return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,tracks(items(track(artists,name)))")
+        return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,tracks(items(track(artists,name,id)))")
+    }
+
+    async getUserPlaylists():Promise<Page<SimplifiedPlaylist>>{
+        return this.spotifyApi.currentUser.playlists.playlists();
     }
 
 }
