@@ -1,15 +1,20 @@
-import {Injectable, inject } from '@angular/core'
-import { OAuth2Client, generateCodeVerifier } from '@badgateway/oauth2-client';
+import { OAuth2Client, OAuth2Token, generateCodeVerifier } from '@badgateway/oauth2-client';
 import { ClientSettings } from '@badgateway/oauth2-client/dist/client';
+import { AuthServiceConfiguration } from 'src/components/models/auth/authServiceConfiguration';
 
-const SPOTIFY_TOKEN_STORAGE_KEY = 'SPOTIFY_TOKEN';
 const STATE_STRING = `Mixtune-Jamboree`
-@Injectable({providedIn:'root'})
 export class AuthService{
+    jwtStorageKey:string = ''
     private oAuthClient!:OAuth2Client;
     private config:any;
-    async authInit(config:any){
+
+    constructor(config:AuthServiceConfiguration){
+        this.authInit(config);
+    }
+
+    async authInit(config:AuthServiceConfiguration){
         this.config = config;
+        this.jwtStorageKey = config.jwtStorageKey
         this.oAuthClient = new OAuth2Client(config as ClientSettings)
     }
 
@@ -45,13 +50,13 @@ export class AuthService{
             }
           );
 
-        sessionStorage.setItem(SPOTIFY_TOKEN_STORAGE_KEY,oauth2Token.accessToken)
+        sessionStorage.setItem(this.jwtStorageKey,JSON.stringify(oauth2Token))
     }
-    public getAccessToken():string | null {
-        return sessionStorage.getItem(SPOTIFY_TOKEN_STORAGE_KEY);
+    public getJwt(): OAuth2Token{
+        return JSON.parse(sessionStorage.getItem(this.jwtStorageKey) as string)as OAuth2Token
     }
     public isLoggedIn():boolean {
-        return this.getAccessToken() != null;
+        return this.getJwt() != null;
     }
    
 }

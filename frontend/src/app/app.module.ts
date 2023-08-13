@@ -36,7 +36,7 @@ import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
     useClass: AuthInterceptor,
     multi: true
     },
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(/*withInterceptorsFromDi()*/),
   ],
   bootstrap: [AppComponent]
 })

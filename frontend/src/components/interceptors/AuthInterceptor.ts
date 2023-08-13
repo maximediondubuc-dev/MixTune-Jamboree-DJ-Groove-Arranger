@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Observable, throwError } from 'rxjs';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { AuthService } from 'src/services/auth.service';
+import { AuthService } from 'src/services/auth/auth.service';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     console.log("hit interceptor")
-    const token = this.authService.getAccessToken();
+    const token = this.authService.getJwt();
     if (token) {
       request = request.clone({
         setHeaders: {

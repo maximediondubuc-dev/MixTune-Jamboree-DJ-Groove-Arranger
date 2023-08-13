@@ -1,4 +1,3 @@
-import { AuthConfig } from "angular-oauth2-oidc";
 
 export const environment = {
     spotifyAuthConfig : {
@@ -6,8 +5,9 @@ export const environment = {
         redirectUri : '',
         clientId : '',
         responseType : 'code',
-        scope : '',
-        showDebugInformation:false
+        scope : ['user-read-private' ,'user-read-email','playlist-read-private', 'playlist-read-collaborative'],
+        jwtStorageKey : 'SPOTIFY_BEARER_TOKEN'
+
     }
 
 
