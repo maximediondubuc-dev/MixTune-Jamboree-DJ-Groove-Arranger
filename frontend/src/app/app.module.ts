@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS, provideHttpClient,withInterceptorsFromDi } from '@an
 import { AuthInterceptor } from 'src/components/interceptors/AuthInterceptor';
 import { PlaylistSelectionComponent } from '../components/playlist-selection/playlist-selection.component';
 import {MatCardModule} from '@angular/material/card';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {MatCardModule} from '@angular/material/card';
     DragDropModule,
     MatButtonModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

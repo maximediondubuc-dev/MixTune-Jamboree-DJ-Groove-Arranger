@@ -1,8 +1,8 @@
 
 <h1 mat-dialog-title>Select a playlist</h1>
 <div mat-dialog-content>
-    <div *ngFor="let playlist of playlists.items">
-        <mat-card class="example-card">
+    <div *ngFor="let playlist of data.playlists.items">
+        <mat-card (click)="playlistSelected(playlist)" class="example-card">
             <mat-card-header>
               <mat-card-title-group>
                 <mat-card-title>{{playlist.name}}</mat-card-title>
@@ -16,6 +16,5 @@
     </div></div>
 
 <div mat-dialog-actions>
-  <button mat-button mat-dialog-close>No</button>
-  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+  <button mat-button mat-dialog-close>Close</button>
 </div>

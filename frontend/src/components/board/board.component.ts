@@ -13,7 +13,9 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class BoardComponent {
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+
+  }
 
 
   spotifyService = inject(SpotifyService)
@@ -33,8 +35,13 @@ export class BoardComponent {
   async openPlaylistSelection(){
     await this.getPlaylists();
     this.dialog.open(PlaylistSelectionComponent, {
-      width: '250px',
-    });
+      data: {
+        playlists : this.playlists
+      },
+    }).afterClosed().subscribe(async playlist => {
+      console.log(playlist)
+      let p = await this.spotifyService.getPlaylist(playlist.id);
+      this.originalItemList= p.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)      });
 
   }
 }

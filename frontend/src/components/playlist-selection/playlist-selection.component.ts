@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, Input } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Page, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
 
 @Component({
@@ -8,11 +8,16 @@ import { Page, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
   styleUrls: ['./playlist-selection.component.scss']
 })
 export class PlaylistSelectionComponent {
-  constructor(public dialogRef: MatDialogRef<PlaylistSelectionComponent>) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<PlaylistSelectionComponent>) { }
 
   @Input()
   playlists!:Page<SimplifiedPlaylist>
 
+
+
+  playlistSelected(playlist:SimplifiedPlaylist){
+    this.dialogRef.close(playlist);
+  }
 
   closeDialog() {
     this.dialogRef.close('Pizza!');
