@@ -23,10 +23,7 @@ export class SpotifyService {
     }
 
     async getPlaylist(playlistId:string):Promise<Playlist>{
-        console.log("here");
-        let token = await this.spotifyApi.getAccessToken()
-        console.log(token);
-        return this.spotifyApi.playlists.getPlaylist(playlistId)
+        return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,tracks(items(track(artists,name)))")
     }
 
 }
