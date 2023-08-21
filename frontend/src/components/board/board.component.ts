@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Page, SimplifiedPlaylist, SpotifyApi } from '@spotify/web-api-ts-sdk';
+import { Page, Playlist, SimplifiedPlaylist, SpotifyApi } from '@spotify/web-api-ts-sdk';
 import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { SpotifyService } from 'src/services/spotify/spotify.service';
@@ -21,6 +21,7 @@ export class BoardComponent {
   spotifyService = inject(SpotifyService)
   originalItemList:string[]= [].map(x=>'item ' + x);
   playlists!:Page<SimplifiedPlaylist>;
+  selectedPlaylist!:Playlist; 
 
 
   async getPlaylist(){
@@ -40,8 +41,10 @@ export class BoardComponent {
       },
     }).afterClosed().subscribe(async playlist => {
       console.log(playlist)
-      let p = await this.spotifyService.getPlaylist(playlist.id);
-      this.originalItemList= p.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)      });
-
+      let p:Playlist = await this.spotifyService.getPlaylist(playlist.id);
+      playlist.tracks = p.tracks;
+      console.log(p);
+      this.selectedPlaylist = playlist;
+    })
   }
 }

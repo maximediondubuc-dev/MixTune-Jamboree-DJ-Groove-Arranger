@@ -1,22 +1,29 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Playlist } from '@spotify/web-api-ts-sdk';
 
 @Component({
   selector: 'item-list',
   templateUrl: './item-list.component.html',
   styleUrls: ['./item-list.component.scss']
 })
-export class ItemListComponent {
+export class ItemListComponent implements OnChanges {
   @Input({ required: true }) title!: string;
   @Input({ required: false }) titleColor!: string;
   @Input() itemList!: string[]
   @Input() canCreateNewItems:boolean = false;
+  @Input() playlist!:Playlist
   ongoingItemCreation:boolean = false;
 
   constructor() {
     if (!this.itemList) {
       this.itemList = [];
     }
+  }
+  ngOnChanges(): void {
+    this.itemList = this.playlist.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name);
+    console.log(this.playlist)
+    this.title = this.playlist.name
   }
 
   startItemCreation(){
