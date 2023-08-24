@@ -22,7 +22,6 @@ export class ItemListComponent implements OnChanges {
   }
   ngOnChanges(): void {
     this.itemList = this.playlist.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name);
-    console.log(this.playlist)
     this.title = this.playlist.name
   }
 
