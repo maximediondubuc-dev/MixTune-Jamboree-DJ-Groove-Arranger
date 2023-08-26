@@ -4,6 +4,10 @@ Playlist editing app with useful features for DJs using Spotify integration
  - Easy to use UI for organizing playlist
  - Playlist exporting functionality
 
+## App should be accessible on url : 
+
+## otherwise, launch frontend locally using dockerfile inside the frontend folder
+
 CV checklist 
 
 oauth interaction [X]
