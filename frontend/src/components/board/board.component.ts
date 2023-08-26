@@ -14,7 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class BoardComponent {
 
   constructor(public dialog: MatDialog) {
-
+      this.openPlaylistSelection();
   }
 
 

@@ -20,7 +20,7 @@ export class PlaylistSelectionComponent {
   }
 
   closeDialog() {
-    this.dialogRef.close('Pizza!');
+    this.dialogRef.close('');
   }
 
 }

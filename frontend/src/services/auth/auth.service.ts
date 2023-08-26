@@ -59,4 +59,9 @@ export class AuthService{
         return this.getJwt() != null;
     }
    
+    public logout(){
+        if(this.isLoggedIn()){
+            sessionStorage.removeItem(this.jwtStorageKey);
+        }
+    }
 }

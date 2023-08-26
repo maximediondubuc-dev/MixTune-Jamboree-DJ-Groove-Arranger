@@ -17,6 +17,10 @@ import { PlaylistSelectionComponent } from '../components/playlist-selection/pla
 import {MatCardModule} from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthGuard } from 'src/guards/auth.guard';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,10 @@ import { AuthGuard } from 'src/guards/auth.guard';
     MatButtonModule,
     MatDialogModule,
     MatCardModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatMenuModule
   ],
   providers: [
     {

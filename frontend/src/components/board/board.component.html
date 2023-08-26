@@ -1,5 +1,4 @@
 <div cdkDropListGroup class="shadow-xl columns-1 p-5 gap-1 bg-gray-100 rounded m-3 min-h-screen">
-    <item-list [canCreateNewItems]="true" [playlist]="selectedPlaylist"  [titleColor]="'bg-red-500'" [title]="'Backlog'"></item-list>
-<button mat-button (click)="openPlaylistSelection()">Select a playlist</button>
+    <item-list *ngIf="selectedPlaylist" [canCreateNewItems]="true" [playlist]="selectedPlaylist"  [titleColor]="'bg-blue-500'" [title]="'Backlog'"></item-list>
 </div>
 

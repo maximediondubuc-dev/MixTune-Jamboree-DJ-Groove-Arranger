@@ -30,6 +30,7 @@ export class SpotifyAuthService extends AuthService implements IAuthStrategy{
     return this.formatToken();
 }
    removeAccessToken(): void {
+    this.logout();
    }
    
 }
