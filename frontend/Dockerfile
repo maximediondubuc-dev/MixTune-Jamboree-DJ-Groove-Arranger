@@ -7,7 +7,7 @@ FROM node:latest as build
 WORKDIR /usr/local/app
 
 # Add the source code to app
-COPY ./ /usr/local/app/
+COPY ./dist/Mixtune-Jamboree /usr/local/app/
 
 # Install all the dependencies
 RUN npm install

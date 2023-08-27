@@ -30,6 +30,9 @@ UI/UX []
     navbar/multiple page navigation
     logout
 backend implementation []
-    save app state ­[]
-    restore app state []
+    setup client credential flow for spotify on netlify serverless function []
+    setup firebase authentication []
+    setup supabase db []
+    save app state in supabase db­[]
+    restore app state from supabase db []
 containerization : create dockerfile for project []
