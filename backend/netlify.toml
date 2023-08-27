@@ -6,3 +6,5 @@
   from = "/api/*"
   status = 200
   to = "/.netlify/functions/api/:splat"
+[build]
+    ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF backend"
