@@ -8,7 +8,10 @@ export const environment = {
         authorizationEndpoint: '/authorize',
         scope : ['user-read-private' ,'user-read-email','playlist-read-private', 'playlist-read-collaborative'],
         jwtStorageKey : 'SPOTIFY_BEARER_TOKEN'
-    }
+    },
 
+    api : {
+        host : "http://localhost:3030"
+    }
 
 };

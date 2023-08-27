@@ -1,5 +1,5 @@
 
-import {getHello} from '../controllers/helloController'
+import {getToken} from '../controllers/spotifyTokenController'
 
 export const helloRouter = createRouter();
 
@@ -10,6 +10,6 @@ function createRouter() {
     const router = Router();
 
     // Requests 
-    router.get('/hello', getHello);
+    router.get('/spotify/token', getToken);
     return router;
 }

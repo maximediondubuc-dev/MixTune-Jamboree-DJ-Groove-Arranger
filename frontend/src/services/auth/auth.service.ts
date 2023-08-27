@@ -38,6 +38,7 @@ export class AuthService{
         scope: this.config.scope ,
         });
     }
+
     public async handleCallback():Promise<void>{
         const codeVerifier = await this.getCodeVerifier()
 
@@ -50,8 +51,14 @@ export class AuthService{
             }
           );
 
-        sessionStorage.setItem(this.jwtStorageKey,JSON.stringify(oauth2Token))
+        this.setJwt(oauth2Token);
     }
+
+    public setJwt(token:OAuth2Token){
+        sessionStorage.setItem(this.jwtStorageKey,JSON.stringify(token))
+
+    }
+
     public getJwt(): OAuth2Token{
         return JSON.parse(sessionStorage.getItem(this.jwtStorageKey) as string)as OAuth2Token
     }
