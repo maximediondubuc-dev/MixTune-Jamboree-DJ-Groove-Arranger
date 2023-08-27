@@ -5,10 +5,10 @@ Playlist editing app with useful features for DJs using Spotify integration
  - Playlist exporting functionality
 
 ## App should be accessible on url : 
+https://lucky-souffle-8561c9.netlify.app/
+
 
 ## otherwise, launch frontend locally using dockerfile inside the frontend folder
-
-CV checklist 
 
 oauth interaction [X]
 display a list [X]
