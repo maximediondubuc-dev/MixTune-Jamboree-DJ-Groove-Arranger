@@ -22,7 +22,11 @@ export const getToken: any = async (req: any, res: any) => {
         method:'POST',
         headers : authOptions.headers,
         body: 'grant_type=client_credentials'
-    }).then((ret :any)=>{
+    })
+    .catch((error:any)=>{
+        console.log(error);
+    })
+    .then((ret :any)=>{
         return ret.json();
     }).then(ret=>{
         res.send(ret)
