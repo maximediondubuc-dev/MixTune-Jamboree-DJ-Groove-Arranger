@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon server.ts"
+    "start": "nodemon src/server.ts"
   },
   "dependencies": {
     "@netlify/functions": "^2.0.2",

@@ -1,7 +1,7 @@
 
 import {getToken} from '../controllers/spotifyTokenController'
 
-export const helloRouter = createRouter();
+export const spotifyTokenRouter = createRouter();
 
 function createRouter() {
     const { Router } = require('express');
