@@ -34,7 +34,6 @@ export class SpotifyAuthService extends AuthService implements IAuthStrategy {
     }
 
     private async formatToken(): Promise<AccessToken> {
-        debugger;
         let accessToken = super.getJwt();
         return {
             access_token: accessToken.accessToken,
