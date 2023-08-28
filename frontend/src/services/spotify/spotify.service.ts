@@ -21,6 +21,9 @@ export class SpotifyService {
     async getPlaylist(playlistId:string):Promise<Playlist>{
         return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,tracks(items(track(artists,name,id)))")
     }
+    async getNoAccountPlaylist(playlistId:string):Promise<Playlist>{
+        return this.spotifyApi.playlists.getPlaylist(playlistId)
+    }
 
     async getUserPlaylists():Promise<Page<SimplifiedPlaylist>>{
         return this.spotifyApi.currentUser.playlists.playlists();

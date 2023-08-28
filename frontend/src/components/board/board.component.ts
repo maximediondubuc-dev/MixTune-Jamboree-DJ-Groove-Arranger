@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { SpotifyService } from 'src/services/spotify/spotify.service';
 import { PlaylistSelectionComponent } from '../playlist-selection/playlist-selection.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SpotifyAuthService } from 'src/services/auth/spotifyAuth.service';
 
 @Component({
   selector: 'board',
@@ -19,14 +20,16 @@ export class BoardComponent {
 
 
   spotifyService = inject(SpotifyService)
+  spotifyAuthService = inject(SpotifyAuthService)
+
   originalItemList:string[]= [].map(x=>'item ' + x);
   playlists!:Page<SimplifiedPlaylist>;
   selectedPlaylist!:Playlist; 
 
 
   async getPlaylist(){
-    let playlist = await this.spotifyService.getPlaylist("64Wacl7nubHp20HQuLs8B6");
-    this.originalItemList= playlist.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)
+    this.selectedPlaylist = await this.spotifyService.getNoAccountPlaylist("37i9dQZF1DXa8NOEUWPn9W");
+    //this.originalItemList= playlist.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)
 
   }
 
@@ -34,17 +37,22 @@ export class BoardComponent {
     this.playlists = await this.spotifyService.getUserPlaylists();
   }
   async openPlaylistSelection(){
-    await this.getPlaylists();
-    this.dialog.open(PlaylistSelectionComponent, {
-      data: {
-        playlists : this.playlists
-      },
-    }).afterClosed().subscribe(async playlist => {
-      console.log(playlist)
-      let p:Playlist = await this.spotifyService.getPlaylist(playlist.id);
-      playlist.tracks = p.tracks;
-      console.log(p);
-      this.selectedPlaylist = playlist;
-    })
-  }
+    if(!this.spotifyAuthService.userHasNoAccount){
+      await this.getPlaylists();
+      this.dialog.open(PlaylistSelectionComponent, {
+        data: {
+          playlists : this.playlists
+        },
+      }).afterClosed().subscribe(async playlist => {
+        console.log(playlist)
+        let p:Playlist = await this.spotifyService.getPlaylist(playlist.id);
+        playlist.tracks = p.tracks;
+        console.log(p);
+        this.selectedPlaylist = playlist;
+      })
+    }
+    await this.getPlaylist();
+
+    }
+    
 }

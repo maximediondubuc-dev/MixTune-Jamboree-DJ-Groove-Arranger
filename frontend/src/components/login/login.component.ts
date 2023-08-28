@@ -20,9 +20,9 @@ export class LoginComponent {
       this.spotifyAuthService.login();
     }
 
-    loginToSpotifyNoAccount(){
-      this.spotifyAuthService.noAccountLogin();
-      this.router.navigate(['main'])
+    async loginToSpotifyNoAccount(){
+      await this.spotifyAuthService.noAccountLogin();
+      this.router.navigate(['main']);
     }
 
 }

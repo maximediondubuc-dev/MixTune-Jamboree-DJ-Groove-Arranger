@@ -1,46 +1,55 @@
-import {Injectable, inject } from '@angular/core'
+import { Injectable, inject } from '@angular/core'
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { AccessToken, IAuthStrategy, SdkConfiguration } from '@spotify/web-api-ts-sdk';
+import { convertToAccessToken } from 'src/mappers/tokenMapper';
+import { OAuth2Token } from '@badgateway/oauth2-client';
+import { TokenDto } from 'src/components/models/spotify/tokenDto';
 
 
-@Injectable({providedIn:'root'})
-export class SpotifyAuthService extends AuthService implements IAuthStrategy{
-   constructor(){
-    super(environment.spotifyAuthConfig);
-   }
+@Injectable({ providedIn: 'root' })
+export class SpotifyAuthService extends AuthService implements IAuthStrategy {
+    userHasNoAccount = false;
 
-  async noAccountLogin(){
-    //call server to obtain client credentials token
-    let token = await fetch(`${environment.api.host}/api/spotify/token`) as any
-    //set token
-    this.setJwt(token);
-    
-   }
+    constructor() {
+        super(environment.spotifyAuthConfig);
+    }
 
-   setConfiguration(configuration: SdkConfiguration): void {
-       
-   }
-   getOrCreateAccessToken(): Promise<AccessToken> {
-       return this.formatToken();
-   }
+    async noAccountLogin() {
+        //call server to obtain client credentials token
+        let token = await fetch(`${environment.api.host}/api/spotify/token`).then(res=>res.json()) as TokenDto
+        
+        //set token
+        this.setJwt(convertToAccessToken(token));
+        
+        this.userHasNoAccount = true;
+        
+    }
 
-   private async formatToken():Promise<AccessToken>{
+    setConfiguration(configuration: SdkConfiguration): void {
+
+    }
+    getOrCreateAccessToken(): Promise<AccessToken> {
+        return this.formatToken();
+    }
+
+    private async formatToken(): Promise<AccessToken> {
+        debugger;
         let accessToken = super.getJwt();
         return {
-            access_token : accessToken.accessToken,
+            access_token: accessToken.accessToken,
             token_type: 'bearer',
-            refresh_token : accessToken.refreshToken ? accessToken.refreshToken : "",
-            expires : accessToken.expiresAt ? accessToken.expiresAt : 0,
-            expires_in : accessToken.expiresAt ? accessToken.expiresAt : 0
+            refresh_token: accessToken.refreshToken ? accessToken.refreshToken : "",
+            expires: accessToken.expiresAt ? accessToken.expiresAt : 0,
+            expires_in: accessToken.expiresAt ? accessToken.expiresAt : 0
         }
-   }
+    }
 
-   getAccessToken(): Promise<AccessToken | null> {
-    return this.formatToken();
-}
-   removeAccessToken(): void {
-    this.logout();
-   }
-   
+    getAccessToken(): Promise<AccessToken | null> {
+        return this.formatToken();
+    }
+    removeAccessToken(): void {
+        this.logout();
+    }
+
 }
