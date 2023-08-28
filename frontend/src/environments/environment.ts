@@ -11,7 +11,7 @@ export const environment = {
     },
 
     api : {
-        host : "http://localhost:3030"
+        host : "https://mixtunejamboree-api.netlify.app"
     }
 
 };
