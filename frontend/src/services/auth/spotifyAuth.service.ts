@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core'
 import { AuthService } from './auth.service';
 import { environment } from 'src/environments/environment';
 import { AccessToken, IAuthStrategy, SdkConfiguration } from '@spotify/web-api-ts-sdk';
-import { convertToAccessToken } from 'src/mappers/tokenMapper';
+import { convertToOauth2Token } from 'src/mappers/tokenMapper';
 import { OAuth2Token } from '@badgateway/oauth2-client';
 import { TokenDto } from 'src/components/models/spotify/tokenDto';
 
@@ -20,7 +20,7 @@ export class SpotifyAuthService extends AuthService implements IAuthStrategy {
         let token = await fetch(`${environment.api.host}/api/spotify/token`).then(res=>res.json()) as TokenDto
         
         //set token
-        this.setJwt(convertToAccessToken(token));
+        this.setJwt(convertToOauth2Token(token));
         
         this.userHasNoAccount = true;
         
