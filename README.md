@@ -15,20 +15,19 @@ typescript flexing [X]
 css flexing [X]
 basic functionality
     show key and bpm on each song []
+    show playlist image and description []
     load playlist fully []
     save playlist to spotify []
     add a song []
     export to file []
 UI/UX []
     navbar/multiple page navigation []
-    show playlist image and description []
     logout []
 clean code flexing : 
     clean reactive state management using reactive programming []
     state is extracted into service
     components notify services through events
     component state uses angular signals from services
-
 backend implementation []
     setup client credential flow for spotify on netlify serverless function [X]
     setup firebase authentication []
