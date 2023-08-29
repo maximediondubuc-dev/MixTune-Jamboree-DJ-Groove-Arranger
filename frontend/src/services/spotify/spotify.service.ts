@@ -1,5 +1,5 @@
 import {Injectable, inject} from '@angular/core'
-import { Page, Playlist, SimplifiedPlaylist, SpotifyApi } from '@spotify/web-api-ts-sdk';
+import { AudioFeatures, Page, Playlist, SimplifiedPlaylist, SpotifyApi } from '@spotify/web-api-ts-sdk';
 
 import { SpotifyAuthService } from '../auth/spotifyAuth.service';
 
@@ -19,11 +19,13 @@ export class SpotifyService {
     }
 
     async getPlaylist(playlistId:string):Promise<Playlist>{
-        return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,tracks(items(track(artists,name,id)))")
+        return this.spotifyApi.playlists.getPlaylist(playlistId,"CA","description,name,images,tracks(items(track(artists,name,id)))")
     }
-    async getNoAccountPlaylist(playlistId:string):Promise<Playlist>{
-        return this.spotifyApi.playlists.getPlaylist(playlistId)
-    }
+
+    async getTrackDetails(ids:string[]):Promise<AudioFeatures[]>{
+        return this.spotifyApi.tracks.audioFeatures(ids);
+    }   
+
 
     async getUserPlaylists():Promise<Page<SimplifiedPlaylist>>{
         return this.spotifyApi.currentUser.playlists.playlists();

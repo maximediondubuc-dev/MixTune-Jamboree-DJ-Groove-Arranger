@@ -22,37 +22,35 @@ export class BoardComponent {
   spotifyService = inject(SpotifyService)
   spotifyAuthService = inject(SpotifyAuthService)
 
-  originalItemList:string[]= [].map(x=>'item ' + x);
   playlists!:Page<SimplifiedPlaylist>;
   selectedPlaylist!:Playlist; 
 
-
-  async getPlaylist(){
-    this.selectedPlaylist = await this.spotifyService.getNoAccountPlaylist("37i9dQZF1DXa8NOEUWPn9W");
-    //this.originalItemList= playlist.tracks.items.map((item:any)=>item.track.artists[0].name +" - "+ item.track.name)
-
-  }
 
   async getPlaylists(){
     this.playlists = await this.spotifyService.getUserPlaylists();
   }
   async openPlaylistSelection(){
+    console.log(this.spotifyAuthService.userHasNoAccount)
     if(!this.spotifyAuthService.userHasNoAccount){
+      console.log("in hurr")
       await this.getPlaylists();
+    }
       this.dialog.open(PlaylistSelectionComponent, {
         data: {
-          playlists : this.playlists
+          playlists : this.playlists,
+          hasNoSpotifyAccount : this.spotifyAuthService.userHasNoAccount
         },
-      }).afterClosed().subscribe(async playlist => {
-        console.log(playlist)
-        let p:Playlist = await this.spotifyService.getPlaylist(playlist.id);
-        playlist.tracks = p.tracks;
-        console.log(p);
-        this.selectedPlaylist = playlist;
+      }).afterClosed().subscribe(async playlistId => {
+        if(playlistId){
+          console.log(playlistId)
+          let p:Playlist = await this.spotifyService.getPlaylist(playlistId);
+          let deets = await  this.spotifyService.getTrackDetails(p.tracks.items.map(x=>x.track.id));
+          console.log(deets);
+          this.selectedPlaylist = p;
+          console.log(p);
+        }
       })
-    }
-    await this.getPlaylist();
-
+    
     }
     
 }

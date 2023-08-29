@@ -23,6 +23,7 @@ basic functionality
 UI/UX []
     navbar/multiple page navigation []
     logout []
+    loading and error handling everywhere []->find a way to make it global ?
 clean code flexing : 
     clean reactive state management using reactive programming []
     state is extracted into service

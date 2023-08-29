@@ -1,7 +1,20 @@
 
 <h1 mat-dialog-title>Select a playlist</h1>
 <div mat-dialog-content>
-    <div *ngFor="let playlist of data.playlists.items">
+    <div>
+      Paste a link to a public playlist
+    </div>
+    <mat-form-field>
+      <mat-label>Spotify playlist link</mat-label>
+      <input matInput type="url" (change)="urlInputChanged($event)"/>
+    </mat-form-field>
+    <button *ngIf="validUrlInput" (click)="loadPlaylistFromUrl()" mat-button>Load</button>
+
+    <ng-container *ngIf="!data.hasNoSpotifyAccount">
+      <div>
+        Or select from one of your playlists
+      </div>
+      <div *ngFor="let playlist of data.playlists.items">
         <mat-card (click)="playlistSelected(playlist)" class="example-card">
             <mat-card-header>
               <mat-card-title-group>
@@ -13,7 +26,9 @@
                 {{playlist.description}}
             </mat-card-content>
           </mat-card>
-    </div></div>
+    </div>
+    </ng-container>
+    </div>
 
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close>Close</button>

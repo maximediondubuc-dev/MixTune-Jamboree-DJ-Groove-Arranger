@@ -10,13 +10,35 @@ import { Page, SimplifiedPlaylist } from '@spotify/web-api-ts-sdk';
 export class PlaylistSelectionComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialogRef: MatDialogRef<PlaylistSelectionComponent>) { }
 
-  @Input()
-  playlists!:Page<SimplifiedPlaylist>
-
-
-
+  validUrlInput=false;
+  url=""
   playlistSelected(playlist:SimplifiedPlaylist){
-    this.dialogRef.close(playlist);
+    this.dialogRef.close(playlist.id);
+  }
+  urlInputChanged(event:any){
+    this.validUrlInput = this.isValidSpotifyPlaylistUrl(event.target.value)
+    if(this.validUrlInput){
+      this.url = event.target.value
+    }
+  }
+
+  loadPlaylistFromUrl(){
+    let playlistId = this.extractPlaylistIdFromSpotifyLink(this.url);
+    this.dialogRef.close(playlistId)
+  }
+  isValidSpotifyPlaylistUrl(url:string) {
+    const spotifyPlaylistRegex = /^https?:\/\/open\.spotify\.com\/playlist\/[a-zA-Z0-9]+(\?si=[a-zA-Z0-9]+)?$/;
+    return spotifyPlaylistRegex.test(url);
+  }
+  extractPlaylistIdFromSpotifyLink(spotifyPlaylistLink:string) {
+    const playlistIdRegex = /playlist\/([a-zA-Z0-9]+)/;
+    const matches = spotifyPlaylistLink.match(playlistIdRegex);
+  
+    if (matches && matches.length > 1) {
+      return matches[1];
+    } else {
+      return null;
+    }
   }
 
   closeDialog() {

@@ -9,7 +9,6 @@ import { TokenDto } from 'src/components/models/spotify/tokenDto';
 
 @Injectable({ providedIn: 'root' })
 export class SpotifyAuthService extends AuthService implements IAuthStrategy {
-    userHasNoAccount = false;
 
     constructor() {
         super(environment.spotifyAuthConfig);

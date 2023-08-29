@@ -7,6 +7,7 @@ export class AuthService{
     jwtStorageKey:string = ''
     private oAuthClient!:OAuth2Client;
     private config:any;
+    userHasNoAccount = true;
 
     constructor(config:AuthServiceConfiguration){
         this.authInit(config);
@@ -37,6 +38,7 @@ export class AuthService{
         codeVerifier,
         scope: this.config.scope ,
         });
+
     }
 
     public async handleCallback():Promise<void>{
@@ -50,6 +52,7 @@ export class AuthService{
               codeVerifier,
             }
           );
+          this.userHasNoAccount=false;
 
         this.setJwt(oauth2Token);
     }
